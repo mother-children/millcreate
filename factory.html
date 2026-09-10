@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#eceae4;font-family:'Zen Kaku Gothic New','Hiragino Kaku Gothic ProN',sans-serif;color:#3c3a36;-webkit-font-smoothing:antialiased}
+a{color:#3c3a36;text-decoration:none;transition:color .15s ease,opacity .15s ease,background-color .15s ease}
+a:hover{opacity:.65}
+</style>
+<style>/* responsive */
+@media (max-width:1000px){
+  [data-r="bgsec"]{display:block!important;min-height:0!important}
+  [data-r="bgsec"]>div{width:100%!important;margin:0!important;max-width:none!important;box-sizing:border-box!important}
+}
+
+@media (max-width:1000px){
+  [data-r="util"]{padding:10px 20px!important;font-size:11px!important;line-height:1.7!important}
+  [data-r="menu"]{min-height:100vh!important;box-sizing:border-box!important;padding:32px 20px!important}
+  [data-r="navlink"]{display:none!important}
+  [data-r="wrap"]{flex-wrap:wrap!important;gap:12px!important;align-items:flex-start!important}
+  [data-r="wrap"]>div{flex:1 1 45%!important;margin-top:0!important}
+}
+@media (max-width:560px){
+  [data-r="wrap"]>div{flex:1 1 100%!important}
+}
+
+@media (max-width:1000px){
+  section{gap:40px!important;padding:16px!important}
+  header{flex-wrap:wrap!important;gap:12px!important;padding:16px 20px!important}
+  header nav{gap:14px!important;flex-wrap:wrap!important}
+  header nav>a[style*="font-weight: 600"]{display:none!important}
+  header nav>a[style*="border-bottom: 2px solid #3c3a36"]{display:none!important}
+  footer{padding:48px 20px 32px!important}
+  [style*="background: #f7f4ee; padding: 10px 40px"]{font-size:11px!important;line-height:1.7!important;padding:10px 20px!important}
+  [style*="border-bottom: 1px solid #e6e1d6; padding: 44px 40px"]{min-height:100vh!important;padding:32px 20px!important;box-sizing:border-box!important}
+
+  [style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr)!important}
+  [style*="repeat(6, minmax(0px, 1fr))"]{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  [style*="repeat(5, minmax(0px, 1fr))"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  [style*="repeat(4, minmax(0px, 1fr))"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  [style*="display: grid"]{gap:20px!important}
+  [style*="gap: 4px"]{gap:4px!important}
+
+  [style*="display: flex"][style*="gap: 72px"],[style*="display: flex"][style*="gap: 56px"],[style*="display: flex"][style*="gap: 40px"]{flex-wrap:wrap!important}
+  [style*="display: flex; gap: 16px; align-items: flex-start"],[style*="align-items: flex-start; margin-top: 44px"],[style*="align-items: flex-start; margin-top: 56px"],[style*="align-items: flex-start; margin-top: 72px"],[style*="align-items: flex-start; margin-top: 80px"],[style*="display: flex; gap: 20px; align-items: flex-start"],[style*="display: flex; gap: 24px; align-items: flex-start"],[style*="display: flex; gap: 4px"]{flex-wrap:wrap!important;gap:12px!important}
+  [style*="display: flex; gap: 16px; align-items: flex-start"],[style*="align-items: flex-start; margin-top: 44px"],[style*="align-items: flex-start; margin-top: 56px"],[style*="align-items: flex-start; margin-top: 72px"],[style*="align-items: flex-start; margin-top: 80px"]>div,[style*="display: flex; gap: 20px; align-items: flex-start"]>div,[style*="display: flex; gap: 24px; align-items: flex-start"]>div,[style*="display: flex; gap: 4px"]>div{flex:1 1 45%!important;margin-top:0!important}
+  [style*="display: flex; align-items: stretch"],[style*="display: flex; align-items: flex-end"],[style*="display: flex; justify-content: center; margin-top"],[style*="display: flex; margin-top: 52px"],[style*="display: flex; margin-top: 48px"]{flex-wrap:wrap!important;gap:8px 0!important}
+  [style*="display: flex; align-items: stretch"]>div,[style*="display: flex; align-items: flex-end"]>div,[style*="display: flex; justify-content: center; margin-top"]>div,[style*="display: flex; margin-top: 52px"]>div{flex:1 1 45%!important;border-left:none!important;padding:12px 8px 12px 0!important;margin-left:0!important}
+  [style*="display: flex; align-items: stretch; gap: 8px"]>div,[style*="display: flex; align-items: stretch; gap: 4px"]>div{flex:1 1 45%!important;padding:16px 12px!important}
+
+  [style^="height: 800px"],[style*="; height: 800px"],[style^="height: 760px"],[style*="; height: 760px"],[style^="height: 720px"],[style*="; height: 720px"],[style^="height: 700px"],[style*="; height: 700px"],[style^="height: 680px"],[style*="; height: 680px"],[style^="height: 640px"],[style*="; height: 640px"],[style^="height: 620px"],[style*="; height: 620px"],[style^="height: 600px"],[style*="; height: 600px"],[style^="height: 560px"],[style*="; height: 560px"],[style^="height: 520px"],[style*="; height: 520px"]{height:62vw!important;min-height:260px!important;max-height:520px!important}
+  [style^="height: 480px"],[style*="; height: 480px"],[style^="height: 460px"],[style*="; height: 460px"],[style^="height: 420px"],[style*="; height: 420px"],[style^="height: 400px"],[style*="; height: 400px"],[style^="height: 380px"],[style*="; height: 380px"],[style^="height: 340px"],[style*="; height: 340px"],[style^="height: 330px"],[style*="; height: 330px"],[style^="height: 310px"],[style*="; height: 310px"],[style^="height: 300px"],[style*="; height: 300px"],[style^="height: 240px"],[style*="; height: 240px"]{height:56vw!important;max-height:420px!important}
+  div:not([style])>image-slot{height:60vw!important;max-height:440px!important}
+  [style*="min-height: 640px"],[style*="min-height: 560px"]{min-height:0!important}
+  [style*="position: absolute; top: 0px; right: 0px; bottom: 0px"],[style*="position: absolute; top: 0px; left: 0px; bottom: 0px"]{position:relative!important;inset:auto!important;width:100%!important;height:60vw!important;max-height:440px!important}
+
+  [style*="position: absolute; left: 48px"],[style*="position: absolute; top: 28px; left: 48px"]{left:20px!important;right:20px!important}
+  [style*="left: 48px; right: 48px"]{left:20px!important;right:20px!important;bottom:24px!important}
+  [style*="left: 48px; bottom: "]{bottom:24px!important}
+  [style*="right: 48px; bottom: 56px"]{right:20px!important;left:20px!important;bottom:24px!important;max-width:none!important}
+  [style*="left: 48px; top: 56px; bottom: 56px"]{left:20px!important;right:20px!important;top:24px!important;bottom:24px!important;max-width:none!important}
+
+  [style*="padding: 56px 72px"],[style*="padding: 60px 80px"],[style*="padding: 52px 72px"],[style*="padding: 56px 80px"],[style*="padding: 56px 64px"],[style*="padding: 52px 60px"],[style*="padding: 48px 60px"],[style*="padding: 52px"],[style*="padding: 56px"]{padding:28px 20px!important;max-width:none!important;margin-left:16px!important;margin-right:16px!important;width:auto!important;box-sizing:border-box!important}
+  [style*="padding: 110px 48px"],[style*="padding: 130px 48px"],[style*="padding: 160px 48px"],[style*="padding: 170px 48px"]{padding:56px 20px!important}
+  [style*="padding: 100px 48px"],[style*="padding: 88px 48px"],[style*="padding: 96px 56px"]{padding:48px 20px!important}
+  [style*="padding: 72px 48px 40px"]{padding:48px 20px 32px!important}
+  [style*="padding: 110px 48px 0px"]{padding:56px 20px 0!important}
+  [style*="padding: 0px 48px 120px"],[style*="padding: 0px 48px 110px"]{padding:0 20px 56px!important}
+  [style*="padding: 120px 0px"],[style*="padding: 110px 0px"],[style*="padding: 130px 0px"]{padding:56px 0!important}
+  [style*="padding: 56px 48px"],[style*="padding: 44px 48px"]{padding:40px 20px!important}
+  [style*="padding: 32px 48px"],[style*="padding: 26px 48px"],[style*="padding: 22px 48px"]{padding:20px!important}
+  [style*="padding: 13px 48px"],[style*="padding: 15px 48px"]{padding:12px 20px!important}
+  [style*="padding: 0px 48px"]{padding-left:20px!important;padding-right:20px!important}
+  [style*="padding: 56px 0px 56px 48px"],[style*="padding: 64px 0px 48px 48px"],[style*="padding: 56px 0px 72px 48px"]{padding:32px 20px!important}
+  [style*="padding: 110px 0px 110px 48px"],[style*="padding: 110px 48px 110px 0px"],[style*="padding: 160px 48px 160px 0px"]{padding:56px 20px!important}
+  [style*="padding: 48px 48px 48px 0px"],[style*="padding: 44px 48px 0px 0px"]{padding:28px 20px!important}
+  [style*="padding: 36px"],[style*="padding: 40px"],[style*="padding: 32px"]{padding:24px!important}
+  [style*="padding-left: 120px"],[style*="padding-left: 56px"],[style*="padding-left: 36px"]{padding-left:0!important}
+
+  [style*="width: 82%"],[style*="width: 74%"],[style*="width: 520px"],[style*="width: 560px"],[style*="width: 600px"],[style*="width: 620px"],[style*="width: 480px"]{width:100%!important}
+  [style*="margin-left: 9%"],[style*="margin-left: 18%"],[style*="margin-left: 26%"],[style*="margin-left: 36px"],[style*="margin-left: 72px"],[style*="margin-left: 108px"],[style*="margin-left: 64px"],[style*="margin-left: 60px"],[style*="margin-left: 80px"],[style*="margin-left: -48px"]{margin-left:0!important}
+  [style*="margin-top: -72px"]{margin-top:0!important}
+  [style*="margin: 96px 0px 0px"]{margin:24px 0 0!important}
+
+  [style*="font-size: 104px"],[style*="font-size: 96px"],[style*="font-size: 88px"]{font-size:38px!important}
+  [style*="font-size: 80px"],[style*="font-size: 76px"],[style*="font-size: 72px"]{font-size:34px!important}
+  [style*="font-size: 64px"],[style*="font-size: 60px"],[style*="font-size: 56px"],[style*="font-size: 52px"]{font-size:28px!important}
+  [style*="font-size: 48px"],[style*="font-size: 44px"]{font-size:26px!important}
+  [style*="font-size: 40px"],[style*="font-size: 38px"],[style*="font-size: 36px"]{font-size:24px!important}
+  [style*="font-size: 34px"],[style*="font-size: 32px"],[style*="font-size: 30px"]{font-size:22px!important}
+  [style*="font-size: 28px"],[style*="font-size: 26px"],[style*="font-size: 24px"]{font-size:20px!important}
+  [style*="font-size: 22px"],[style*="font-size: 20px"]{font-size:17px!important}
+  [style*="font-size: 18px"],[style*="font-size: 17px"]{font-size:15px!important}
+}
+@media (max-width:560px){
+  [style*="repeat(6, minmax(0px, 1fr))"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  [style*="repeat(5, minmax(0px, 1fr))"],[style*="repeat(4, minmax(0px, 1fr))"]{grid-template-columns:minmax(0,1fr)!important}
+  [style*="display: flex; gap: 16px; align-items: flex-start"],[style*="align-items: flex-start; margin-top: 44px"],[style*="align-items: flex-start; margin-top: 56px"],[style*="align-items: flex-start; margin-top: 72px"],[style*="align-items: flex-start; margin-top: 80px"]>div,[style*="display: flex; gap: 20px; align-items: flex-start"]>div,[style*="display: flex; gap: 24px; align-items: flex-start"]>div,[style*="display: flex; gap: 4px"]>div{flex:1 1 100%!important}
+  [style*="display: flex; align-items: stretch"]>div,[style*="display: flex; align-items: flex-end"]>div{flex:1 1 100%!important}
+  [style^="height: 800px"],[style*="; height: 800px"],[style^="height: 760px"],[style*="; height: 760px"],[style^="height: 720px"],[style*="; height: 720px"],[style^="height: 700px"],[style*="; height: 700px"],[style^="height: 680px"],[style*="; height: 680px"],[style^="height: 640px"],[style*="; height: 640px"],[style^="height: 620px"],[style*="; height: 620px"],[style^="height: 600px"],[style*="; height: 600px"]{height:96vw!important;max-height:460px!important}
+}
+
+@media (max-width:1000px){
+  [data-r="bgphoto"]{position:relative!important;inset:auto!important;width:100%!important;height:60vw!important;max-height:440px!important}
+}
+
+@media (max-width:1000px){
+  /* SP：写真の並びは1枚に */
+  [data-r="sp1"]{grid-template-columns:minmax(0,1fr)!important;gap:0!important}
+  [data-r="sp1"]>*:nth-child(n+2){display:none!important}
+  [data-r="sphide"]{display:none!important}
+
+  /* SP：見出しと本文のジャンプ率を上げる */
+  h1,h2{letter-spacing:.04em!important}
+  [style*="font-size: 44px"],[style*="font-size: 40px"],[style*="font-size: 38px"]{font-size:30px!important;line-height:1.45!important}
+  [style*="font-size: 36px"],[style*="font-size: 34px"]{font-size:27px!important;line-height:1.5!important}
+  [style*="font-size: 32px"],[style*="font-size: 30px"],[style*="font-size: 28px"]{font-size:24px!important;line-height:1.55!important}
+  [style*="font-size: 26px"],[style*="font-size: 24px"]{font-size:21px!important;line-height:1.6!important}
+  [style*="font-size: 22px"]{font-size:19px!important}
+  [style*="font-size: 20px"]{font-size:17px!important}
+  [style*="font-size: 17px"],[style*="font-size: 16px"]{font-size:15px!important;line-height:1.95!important}
+  [style*="font-size: 15px"]{font-size:14px!important;line-height:1.95!important}
+
+  /* SP：罫線と番号を間引き、余白で区切る */
+  [data-r="rule"]{border-top-color:transparent!important;border-bottom-color:transparent!important}
+  [data-r="bignum"]{font-size:22px!important;color:#b3a184!important;line-height:1.1!important;letter-spacing:.1em!important}
+}
+
+@media (max-width:1000px){
+  [data-r="fvtall"]{height:118vw!important;min-height:460px!important;max-height:720px!important}
+}
+</style>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<section style="display:flex;justify-content:center;padding:0">
+
+<div data-screen-label="FACTORY" style="width:100%;max-width:1440px">
+<div style="background:#fdfcfa">
+<div data-r="util" style="background:#f7f4ee;padding:10px 40px;font-size:12px;letter-spacing:.05em">広島県福山市・国産デニム発祥の地。デニムのOEM・ODM／サンプル・パターン制作。</div>
+<header style="display:flex;justify-content:space-between;align-items:center;padding:22px 40px;border-bottom:1px solid #e6e1d6">
+<a href="./index.html" style="font-family:Manrope,sans-serif;font-weight:700;letter-spacing:.12em;font-size:17px">MILL CREATE</a>
+<nav style="display:flex;align-items:center;gap:34px">
+<a href="./philosophy.html" style="font-family:Manrope,sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em">PHILOSOPHY</a>
+<a href="./about.html" style="font-family:Manrope,sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em">ABOUT</a>
+<a href="./factory.html" data-r="navlink" style="font-family:Manrope,sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;border-bottom:2px solid #3c3a36;padding-bottom:3px">FACTORY</a>
+<a href="./english.html" style="font-family:Manrope,sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em">ENGLISH</a>
+<a href="./contact.html" style="font-family:Manrope,sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em">CONTACT</a>
+<a href="./recruit.html" style="font-family:Manrope,sans-serif;font-size:13px;font-weight:700;color:#fdfcfa;background:#3c3a36;border-radius:999px;padding:10px 24px;letter-spacing:.06em">RECRUIT</a>
+<button type="button" onClick="{{ toggle_2a }}" aria-label="MENU" style="display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;padding:0 10px;margin-left:-6px;background:none;border:none;cursor:pointer;box-sizing:border-box"><span style="display:block;height:1.5px;background:#3c3a36"></span><span style="display:block;height:1.5px;background:#3c3a36"></span><span style="display:block;height:1.5px;background:#3c3a36"></span></button>
+</nav>
+</header>
+<sc-if value="{{ open_2a }}" hint-placeholder-val="{{ false }}">
+<div data-r="menu" style="background:#f7f4ee;padding:44px 40px">
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px">
+<div><div style="font-family:Manrope,sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;color:#a39d90">SITE</div><div style="display:grid;grid-template-columns:minmax(0,1fr);gap:11px;margin-top:16px;font-size:13px;letter-spacing:.05em"><a href="./philosophy.html">PHILOSOPHY</a><a href="./about.html">ABOUT</a><a href="./factory.html">FACTORY</a><a href="./news.html">NEWS</a></div></div>
+<div><div style="font-family:Manrope,sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;color:#a39d90">RECRUIT</div><div style="display:grid;grid-template-columns:minmax(0,1fr);gap:11px;margin-top:16px;font-size:13px;letter-spacing:.05em"><a href="./recruit-works.html">仕事を知る</a><a href="./recruit-environment.html">働く環境</a><a href="./recruit-voices.html">VOICES</a><a href="./recruit-faq.html">採用FAQ</a><a href="#">募集要項</a><a href="#">エントリー</a></div></div>
+<div><div style="font-family:Manrope,sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;color:#a39d90">OTHER</div><div style="display:grid;grid-template-columns:minmax(0,1fr);gap:11px;margin-top:16px;font-size:13px;letter-spacing:.05em"><a href="./contact.html">CONTACT</a><a href="./faq.html">FAQ</a><a href="./english.html">ENGLISH</a></div></div>
+<div><div style="font-family:Manrope,sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;color:#a39d90">LINKS</div><div style="display:grid;grid-template-columns:minmax(0,1fr);gap:11px;margin-top:16px;font-size:13px;letter-spacing:.05em"><a href="https://hito-to-ito.com/" target="_blank" rel="noopener">HITOTOITO ↗</a><a href="https://www.boleega.com/" target="_blank" rel="noopener">Project Boleega ↗</a></div></div>
+</div>
+</div>
+</sc-if>
+
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 640px;align-items:stretch;border-bottom:1px solid #e6e1d6">
+<div style="padding:56px 48px 48px;display:flex;flex-direction:column;justify-content:center">
+<div>
+<h1 style="font-family:Manrope,sans-serif;font-weight:800;font-size:76px;letter-spacing:.03em;line-height:1;margin:0">FACTORY</h1>
+<div style="font-size:13px;letter-spacing:.14em;color:#75705f;margin-top:14px">ものづくり｜OEM・ODM</div>
+<p style="font-size:17px;line-height:2;letter-spacing:.05em;max-width:26em;margin:28px 0 0">考える工場です。図面があるなら、その通りに。まだ絵がないなら、そこから一緒に。どちらからでも受けています。</p>
+</div>
+</div>
+<div data-r="fvtall" style="height:520px"><image-slot style="width:100%;height:100%" id="2a-hero" shape="rect" placeholder="写真：デニム／縫製のクローズアップ（横位置）" src="./photos/p105.webp"></image-slot></div>
+</div>
+
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;border-bottom:1px solid #e6e1d6">
+<div data-r="sphide" style="min-height:460px"><image-slot style="width:100%;height:100%" id="2a-partner" shape="rect" placeholder="写真：工場全景＋協力工場の風景（横位置）" src="./photos/p117.webp"></image-slot></div>
+<div style="padding:88px 56px;display:flex;flex-direction:column;justify-content:center">
+<h2 style="font-size:38px;font-weight:700;letter-spacing:.05em;line-height:1.5;margin:0">境目まで、<br>私たちの仕事。</h2>
+<div style="font-family:Manrope,sans-serif;font-size:12px;letter-spacing:.1em;color:#a39d90;margin-top:12px">Our work does not end at our walls.</div>
+<p style="font-size:16px;line-height:2.05;letter-spacing:.05em;max-width:30em;margin:28px 0 0">「依頼を受ける工場」ではありません。ブランドと同じ側に立って、一着の作り方を一緒に決めていきます。一貫生産ができる会社はほかにもありますが、各工程のプロが自分で考えて提案するところが、私たちの違いです。</p>
+</div>
+</div>
+
+<div style="padding:120px 48px">
+<div style="font-family:Manrope,sans-serif;font-weight:700;font-size:44px;letter-spacing:.04em;line-height:1.1">REASONS</div>
+<div style="font-size:13px;letter-spacing:.14em;color:#75705f;margin-top:10px">選ばれる理由</div>
+
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:72px;align-items:center;margin-top:72px">
+
+<div>
+<div data-r="bignum" style="font-family:Manrope,sans-serif;font-weight:800;font-size:104px;line-height:.85;letter-spacing:.02em;color:#e6e1d6">01</div>
+<h3 style="font-size:34px;font-weight:700;letter-spacing:.05em;line-height:1.5;margin:20px 0 0">人が、ブランドである。</h3>
+<div style="width:56px;height:2px;background:#b3a184;margin:26px 0 0"></div>
+<p style="font-size:16px;line-height:2.05;letter-spacing:.05em;max-width:32em;margin:26px 0 0">言われた通りに、は作らない。仕組みではなく、工程を担う一人ひとりの技術と判断。それが、選ばれている理由です。</p>
+</div>
+<div style="aspect-ratio:4/5"><image-slot style="width:100%;height:100%" id="2a-reasons" shape="rect" placeholder="写真：各持ち場のプロのポートレート" src="./photos/p39.webp"></image-slot></div>
+</div>
+
+<div style="display:grid;grid-template-columns:560px minmax(0,1fr);gap:72px;align-items:center;margin-top:96px">
+<div style="aspect-ratio:1/1"><image-slot style="width:100%;height:100%" id="2a-collection" shape="rect" placeholder="写真：製品・コレクションのカット" src="./photos/p32.webp"></image-slot></div>
+<div>
+<div data-r="bignum" style="font-family:Manrope,sans-serif;font-weight:800;font-size:104px;line-height:.85;letter-spacing:.02em;color:#e6e1d6">02</div>
+<h3 style="font-size:34px;font-weight:700;letter-spacing:.05em;line-height:1.5;margin:20px 0 0">20年、コレクションブランドと。</h3>
+<div style="width:56px;height:2px;background:#b3a184;margin:26px 0 0"></div>
+<p style="font-size:16px;line-height:2.05;letter-spacing:.05em;max-width:32em;margin:26px 0 0">サンプル製作から始まって20年以上。パリ・ファッションウィークで発表するブランドをはじめ、国内外のデザイナーズブランドと服づくりを続けてきました。</p>
+</div>
+
+</div>
+<div style="margin-top:96px">
+<div data-r="bignum" style="font-family:Manrope,sans-serif;font-weight:800;font-size:104px;line-height:.85;letter-spacing:.02em;color:#e6e1d6">03</div>
+<h3 style="font-size:34px;font-weight:700;letter-spacing:.05em;line-height:1.5;margin:20px 0 0">企画から量産まで、提案しながら。</h3>
+<div style="width:56px;height:2px;background:#b3a184;margin:26px 0 0"></div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;margin-top:26px;align-items:start">
+<p style="font-size:16px;line-height:2.05;letter-spacing:.05em;margin:0">企画・デザインのご提案、パターン、サンプル、グレーディング、裁断、縫製、加工、量産まで一貫して対応。複雑なパターンや前例のない仕様ほど、こちらの判断で提案しながら形にします。</p>
+<div style="aspect-ratio:4/3"><image-slot style="width:100%;height:100%" id="2a-reasons-03" shape="rect" placeholder="写真：企画〜量産の工程（横位置）" src="./photos/p118.webp"></image-slot></div>
+</div>
+</div>
+</div>
+
+<div style="background:#f7f4ee;padding:120px 48px">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:80px;align-items:center">
+<div>
+<div style="font-family:Manrope,sans-serif;font-weight:700;font-size:22px;letter-spacing:.04em">SAMPLE</div>
+<div style="font-size:13px;letter-spacing:.14em;color:#75705f;margin-top:10px">サンプル制作</div>
+<h2 style="font-size:38px;font-weight:700;letter-spacing:.05em;line-height:1.5;margin:26px 0 0">量産は、<br>サンプルで決まる。</h2>
+<p style="font-size:16px;line-height:2.05;letter-spacing:.05em;max-width:34em;margin:28px 0 0">サンプルなら形にできても、量産では通らない。服づくりには、そういうことが起こります。私たちは創業からしばらく、サンプルだけをつくっていました。量産を始めてからも、サンプルは手放さなかった。量産で何が起きるかを知らなければ、1stサンプルは引けないからです。</p>
+<p style="font-size:16px;line-height:2.05;letter-spacing:.05em;max-width:34em;margin:24px 0 0">洗いが入るなら、縮む分を計算してパターンを引く。縫い代は減らせても増やせないから、切る前に必ず見る。よそでつくられたサンプルをそのまま量産に回すと、もう一度サンプルからやり直すような手直しになることもあります。だから企画の段階から入らせてもらい、「この仕様なら量産しやすい」「この工程なら品質が安定する」と提案しながら、2ndで詰めていきます。</p>
+</div>
+<div style="aspect-ratio:3/4"><image-slot style="width:100%;height:100%" id="2a-sample" shape="rect" placeholder="写真：サンプル縫製・パターン確認のカット（縦位置）" src="./photos/p31.webp"></image-slot></div>
+</div>
+</div>
+
+<div style="padding:120px 48px">
+<div style="font-family:Manrope,sans-serif;font-weight:700;font-size:22px;letter-spacing:.04em">TRUST</div>
+<div style="font-size:13px;letter-spacing:.14em;color:#75705f;margin-top:10px">協力工場との関係</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;margin-top:26px;align-items:start">
+<h2 style="font-size:32px;font-weight:700;letter-spacing:.05em;line-height:1.6;margin:0">よその工場の仕事にも、<br>うちが責任を持つ。</h2>
+<p style="font-size:16px;line-height:2.05;letter-spacing:.05em;margin:0">ブランドだけでなく、協力工場とも20年近く付き合ってきました。品質の基準と考え方を共有しているので、うちの外で進む工程でも、仕上がりは同じ水準に揃います。工程の境目で品質が落ちない——それが、私たちが一貫生産と呼んでいるものの中身です。</p>
+</div>
+<div style="height:380px;margin-top:56px"><image-slot style="width:100%;height:100%" id="2a-trust" shape="rect" placeholder="写真：協力工場での作業（横位置）" src="./photos/p33.webp"></image-slot></div>
+</div>
+
+<div style="background:#f7f4ee;padding:120px 48px">
+<div style="font-family:Manrope,sans-serif;font-weight:700;font-size:44px;letter-spacing:.04em;line-height:1.1">VOICES</div>
+<div style="font-size:13px;letter-spacing:.14em;color:#75705f;margin-top:10px">つくり手の声</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:48px">
+
+<div style="display:flex;flex-direction:column;border:1px solid #e6e1d6;min-width:0">
+<div style="aspect-ratio:4/3"><image-slot style="width:100%;height:100%" id="2a-voice-02" shape="rect" placeholder="写真：正面ポートレート（本多 功坪）" src="./photos/p82.webp"></image-slot></div>
+<div style="padding:28px">
+<div style="font-size:16px;font-weight:700;letter-spacing:.05em;line-height:1.8">本多 功坪</div>
+<div style="font-size:13px;letter-spacing:.05em;color:#75705f;margin-top:4px">サンプル裁断・生産管理／入社14年目</div>
+<p style="font-size:14px;line-height:1.95;letter-spacing:.04em;border-left:2px solid #b3a184;padding-left:14px;margin:18px 0 0">切ってしまうと、もう変更がきかない。縫い代のつけ方ひとつで仕上がりが変わるので、切る前に必ず見て、ポイントを伝えてから渡します。</p>
+<div style="margin-top:20px"><a href="./recruit-voices-02.html" style="font-size:13px;font-weight:700;letter-spacing:.05em;border-bottom:1px solid #d9cdba;padding-bottom:3px">MORE →</a></div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;border:1px solid #e6e1d6;min-width:0">
+<div style="aspect-ratio:4/3"><image-slot style="width:100%;height:100%" id="2a-voice-04" shape="rect" placeholder="写真：正面ポートレート（高橋 和美）" src="./photos/p93.webp"></image-slot></div>
+<div style="padding:28px">
+<div style="font-size:16px;font-weight:700;letter-spacing:.05em;line-height:1.8">高橋 和美</div>
+<div style="font-size:13px;letter-spacing:.05em;color:#75705f;margin-top:4px">パターン・経理／入社23年目</div>
+<p style="font-size:14px;line-height:1.95;letter-spacing:.04em;border-left:2px solid #b3a184;padding-left:14px;margin:18px 0 0">メーカーさんから来たパターンでも、こう変更しておいた方がいいと思えば変えることもあります。デザインと実際の縫いの、中間にいる感じです。</p>
+<div style="margin-top:20px"><a href="./recruit-voices-04.html" style="font-size:13px;font-weight:700;letter-spacing:.05em;border-bottom:1px solid #d9cdba;padding-bottom:3px">MORE →</a></div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;border:1px solid #e6e1d6;min-width:0">
+<div style="aspect-ratio:4/3"><image-slot style="width:100%;height:100%" id="2a-voice-06" shape="rect" placeholder="写真：正面ポートレート（東 樹生）" src="./photos/p99.jpg"></image-slot></div>
+<div style="padding:28px">
+<div style="font-size:16px;font-weight:700;letter-spacing:.05em;line-height:1.8">東 樹生</div>
+<div style="font-size:13px;letter-spacing:.05em;color:#75705f;margin-top:4px">副社長・営業・生産管理／入社8年目</div>
+<p style="font-size:14px;line-height:1.95;letter-spacing:.04em;border-left:2px solid #b3a184;padding-left:14px;margin:18px 0 0">メーカーさんと現場のあいだに立って、どの生地で、どういう縫い方で、どこの加工場でどう仕上げるかを組み立てます。間に人が増えるほど解釈がずれるので、なるべく直接お話しできる体制にしています。</p>
+<div style="margin-top:20px"><a href="./recruit-voices-06.html" style="font-size:13px;font-weight:700;letter-spacing:.05em;border-bottom:1px solid #d9cdba;padding-bottom:3px">MORE →</a></div>
+</div>
+</div>
+</div>
+</div>
+
+<div style="padding:120px 48px">
+<div style="font-family:Manrope,sans-serif;font-weight:700;font-size:44px;letter-spacing:.04em;line-height:1.1">PROCESS</div>
+<div style="font-size:13px;letter-spacing:.14em;color:#75705f;margin-top:10px">ご相談から、納品まで</div>
+<div style="margin-top:48px">
+
+<div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:32px;background:#f7f4ee;padding:36px 40px;align-items:start">
+<div>
+<div style="font-family:Manrope,sans-serif;font-weight:800;font-size:44px;line-height:1;letter-spacing:.02em;color:#b3a184">00</div>
+</div>
+<div>
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:Manrope,sans-serif;font-size:18px;font-weight:700;letter-spacing:.06em">CONTACT</span><span style="font-size:12px;letter-spacing:.1em;color:#75705f">ご相談</span></div>
+<p style="font-size:15px;line-height:2;letter-spacing:.05em;margin:14px 0 0;max-width:40em">図面があってもなくても。イメージやキーワードだけでも始められます。足りない部分は、こちらから出します。</p>
+</div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 24px;margin-top:40px">
+
+<div style="display:flex;flex-direction:column;min-width:0">
+<div style="aspect-ratio:4/3"><image-slot style="width:100%;height:100%" id="2a-pr-01" shape="rect" placeholder="写真：企画・パターン" src="./photos/p13.webp"></image-slot></div>
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:18px">
+<span style="font-family:Manrope,sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;color:#b3a184">01</span>
+<span style="font-family:Manrope,sans-serif;font-size:16px;font-weight:700;letter-spacing:.06em">PATTERN</span>
+<span style="font-size:12px;letter-spacing:.1em;color:#75705f">企画・パターン</span>
+</div>
+<p style="font-size:14px;line-height:1.95;letter-spacing:.04em;margin:12px 0 0">デザイナーのイメージを、アパレルCAD（SUPERα／MYU）で精密な設計線に。1stサンプルの要となる上流の工程です。グレーディング（サイズ展開）までを担います。</p>
+</div>
+
+<div style="display:flex;flex-direction:column;min-width:0">
+<div style="aspect-ratio:4/3"><image-slot style="width:100%;height:100%" id="2a-pr-02" shape="rect" placeholder="写真：サンプル" src="./photos/p119.webp"></image-slot></div>
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:18px">
+<span style="font-family:Manrope,sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;color:#b3a184">02</span>
+<span style="font-family:Manrope,sans-serif;font-size:16px;font-weight:700;letter-spacing:.06em">SAMPLE</span>
+<span style="font-size:12px;letter-spacing:.1em;color:#75705f">サンプル</span>
+</div>
+<p style="font-size:14px;line-height:1.95;letter-spacing:.04em;margin:12px 0 0">1stサンプルで、量産の課題を先に洗い出します。ここで決まります。</p>
+</div>
+
+<div style="display:flex;flex-direction:column;min-width:0">
+<div style="aspect-ratio:4/3"><image-slot style="width:100%;height:100%" id="2a-pr-03" shape="rect" placeholder="写真：延反・裁断" src="./photos/p14.webp"></image-slot></div>
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:18px">
+<span style="font-family:Manrope,sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;color:#b3a184">03</span>
+<span style="font-family:Manrope,sans-serif;font-size:16px;font-weight:700;letter-spacing:.06em">CUTTING</span>
+<span style="font-size:12px;letter-spacing:.1em;color:#75705f">延反・裁断</span>
+</div>
+<p style="font-size:14px;line-height:1.95;letter-spacing:.04em;margin:12px 0 0">生地を平らに延ばし（延反）、精度高くパーツを切り出します。</p>
+</div>
+
+<div style="display:flex;flex-direction:column;min-width:0">
+<div style="aspect-ratio:4/3"><image-slot style="width:100%;height:100%" id="2a-pr-04" shape="rect" placeholder="写真：縫製" src="./photos/p15.webp"></image-slot></div>
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:18px">
+<span style="font-family:Manrope,sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;color:#b3a184">04</span>
+<span style="font-family:Manrope,sans-serif;font-size:16px;font-weight:700;letter-spacing:.06em">SEWING</span>
+<span style="font-size:12px;letter-spacing:.1em;color:#75705f">縫製</span>
+</div>
+<p style="font-size:14px;line-height:1.95;letter-spacing:.04em;margin:12px 0 0">厚手デニムから異素材・多パーツまで。生地の表情を引き出し、美しく立体的に仕上げます。</p>
+</div>
+
+<div style="display:flex;flex-direction:column;min-width:0">
+<div style="aspect-ratio:4/3"><image-slot style="width:100%;height:100%" id="2a-pr-05" shape="rect" placeholder="写真：特殊・二次加工" src="./photos/p113.webp"></image-slot></div>
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:18px">
+<span style="font-family:Manrope,sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;color:#b3a184">05</span>
+<span style="font-family:Manrope,sans-serif;font-size:16px;font-weight:700;letter-spacing:.06em">PROCESSING</span>
+<span style="font-size:12px;letter-spacing:.1em;color:#75705f">特殊・二次加工</span>
+</div>
+<p style="font-size:14px;line-height:1.95;letter-spacing:.04em;margin:12px 0 0">洗い加工、ダメージ加工、プリント・刺繍などを協力工場と連携して手配します。</p>
+</div>
+
+<div style="display:flex;flex-direction:column;min-width:0">
+<div style="aspect-ratio:4/3"><image-slot style="width:100%;height:100%" id="2a-pr-06" shape="rect" placeholder="写真：検品・仕上げ" src="./photos/p16.webp"></image-slot></div>
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:18px">
+<span style="font-family:Manrope,sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;color:#b3a184">06</span>
+<span style="font-family:Manrope,sans-serif;font-size:16px;font-weight:700;letter-spacing:.06em">INSPECTION</span>
+<span style="font-size:12px;letter-spacing:.1em;color:#75705f">検品・仕上げ</span>
+</div>
+<p style="font-size:14px;line-height:1.95;letter-spacing:.04em;margin:12px 0 0">15年以上提携する検品・仕上げのパートナーとともに、最終品質を守って納品します。</p>
+</div>
+</div>
+<div style="margin-top:40px">
+
+<div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:32px;background:#f7f4ee;padding:36px 40px;align-items:start">
+<div>
+<div style="font-family:Manrope,sans-serif;font-weight:800;font-size:44px;line-height:1;letter-spacing:.02em;color:#b3a184">07</div>
+</div>
+<div>
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:Manrope,sans-serif;font-size:18px;font-weight:700;letter-spacing:.06em">DELIVERY</span><span style="font-size:12px;letter-spacing:.1em;color:#75705f">納品</span></div>
+<p style="font-size:15px;line-height:2;letter-spacing:.05em;margin:14px 0 0;max-width:40em">納品後の修正や、次のシーズンのご相談まで伴走します。</p>
+</div>
+</div>
+</div>
+<p style="font-size:16px;line-height:2.05;letter-spacing:.05em;margin:48px 0 0">各工程を、一つのチームで。工程の境目で品質を落とさないこと。それが一貫生産の価値です。</p>
+</div>
+
+<div style="background:#f7f4ee;padding:110px 48px">
+<div style="font-family:Manrope,sans-serif;font-weight:700;font-size:22px;letter-spacing:.04em">FACILITY</div>
+<div style="font-size:13px;letter-spacing:.14em;color:#75705f;margin-top:10px">設備</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 520px;gap:72px;margin-top:40px;align-items:start">
+<div style="display:grid;grid-template-columns:minmax(0,1fr);gap:0;font-size:15px;letter-spacing:.05em">
+<div style="border-top:1px solid #d9cdba;padding:18px 0">アパレルCAD「SUPERα」「MYU」（YUKA&amp;ALPHA社）</div>
+<div style="border-top:1px solid #d9cdba;padding:18px 0">自動延反機・自動裁断機</div>
+<div style="border-top:1px solid #d9cdba;padding:18px 0">本縫い／二本針／オーバーロック／扁平（各種工業用ミシン）</div>
+<div style="border-top:1px solid #d9cdba;padding:18px 0">デニム対応の特殊ミシン・環縫い設備</div>
+<div style="border-top:1px solid #d9cdba;border-bottom:1px solid #d9cdba;padding:18px 0">検針器・プレス／仕上げ設備</div>
+</div>
+<div data-r="sp1" style="display:grid;grid-template-columns:minmax(0,1fr);gap:4px">
+<div style="aspect-ratio:4/3"><image-slot style="width:100%;height:100%" id="2a-fac-1" shape="rect" placeholder="写真：設備カット①" src="./photos/p114.webp"></image-slot></div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px"><div style="aspect-ratio:1/1"><image-slot style="width:100%;height:100%" id="2a-fac-2" shape="rect" placeholder="写真：設備②" src="./photos/p115.webp"></image-slot></div><div style="aspect-ratio:1/1"><image-slot style="width:100%;height:100%" id="2a-fac-3" shape="rect" placeholder="写真：設備③" src="./photos/p116.webp"></image-slot></div></div>
+</div>
+</div>
+</div>
+
+<div style="padding:88px 48px">
+<div style="display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px;align-items:baseline">
+<div style="font-family:Manrope,sans-serif;font-weight:700;font-size:22px;letter-spacing:.04em">ITEMS</div>
+<p style="font-size:16px;line-height:2.05;letter-spacing:.05em;margin:0">デニムジーンズ、シャツ、ジャケットなど。厚手デニムや、異素材・多パーツを組み合わせた製造難度の高い製品が得意です。</p>
+</div>
+</div>
+
+<div style="background:#f7f4ee;padding:110px 48px">
+<div style="font-family:Manrope,sans-serif;font-weight:700;font-size:44px;letter-spacing:.04em;line-height:1.1">PROJECTS</div>
+<div style="font-size:13px;letter-spacing:.14em;color:#75705f;margin-top:10px">実績</div>
+<div style="font-size:20px;font-weight:500;line-height:2;letter-spacing:.05em;margin-top:32px">国内外のブランドと、日々ものづくりを続けています。そのうち、ご紹介できる2件を。</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:48px">
+
+<div style="position:relative;background:#ffffff;border:1px solid #e6e1d6;min-width:0">
+<div style="position:relative;padding:44px 40px">
+<div style="font-family:Manrope,sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;color:#b3a184">PROJECT 01</div>
+<h3 style="font-size:28px;font-weight:700;letter-spacing:.05em;line-height:1.6;margin:20px 0 0">ショーの前日に、パリへ発つ。</h3>
+<div style="width:48px;height:2px;background:#b3a184;margin:28px 0 0"></div>
+<p style="font-size:15px;line-height:2.05;letter-spacing:.05em;margin:28px 0 0">パリ・ファッションウィークのメンズコレクションに向けて、年に2回。1月が秋冬、6月が春夏です。</p>
+<p style="font-size:15px;line-height:2.05;letter-spacing:.05em;margin:22px 0 0">6月のショーが終わって帰国すれば、すぐに次のシーズンの企画が始まります。デザインを詰めていく段階を経て、9月頃には素材と加工の話に入る。私たちが加わるのは、ここからです。</p>
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid #e6e1d6">
+<div style="font-size:13px;letter-spacing:.05em;color:#75705f;line-height:1.9">デニムを中心とした縫製・加工、MA-1などの軍物</div>
+<div style="margin-top:14px"><a href="https://www.miharayasuhiro.jp/" target="_blank" rel="noopener" style="font-family:Manrope,'Zen Kaku Gothic New',sans-serif;font-size:15px;font-weight:700;letter-spacing:.04em;border-bottom:1px solid #d9cdba;padding-bottom:3px">Maison MIHARA YASUHIRO ↗</a></div>
+<div style="margin-top:20px"><a href="./project-01.html" style="font-family:Manrope,sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;border-bottom:1px solid #d9cdba;padding-bottom:3px">MORE →</a></div>
+</div>
+</div>
+</div>
+
+<div style="position:relative;background:#ffffff;border:1px solid #e6e1d6;min-width:0">
+<div style="position:relative;padding:44px 40px">
+<div style="font-family:Manrope,sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;color:#b3a184">PROJECT 02</div>
+<h3 style="font-size:28px;font-weight:700;letter-spacing:.05em;line-height:1.6;margin:20px 0 0">「かっこよくして」と、届く。</h3>
+<div style="width:48px;height:2px;background:#b3a184;margin:28px 0 0"></div>
+<p style="font-size:15px;line-height:2.05;letter-spacing:.05em;margin:28px 0 0">デザイナーの方と、直接やりとりをしています。</p>
+<p style="font-size:15px;line-height:2.05;letter-spacing:.05em;margin:22px 0 0">ふつうは、デザイナーの下にアシスタントの方や生産管理の方がいて、そこから工場に降りてくる。伝言が重なるぶん、現場に届く頃には解釈が少しずつずれていきます。こちらの場合はそれがありません。シーズンのテーマを最初の段階から共有していただいて、私たちが受け止めて「これはどうですか」と返す。違う、もっとこうしたい、いい、その往復で進んでいきます。</p>
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid #e6e1d6">
+<div style="font-size:13px;letter-spacing:.05em;color:#75705f;line-height:1.9">製品加工を中心に、レザーなどの特殊素材</div>
+<div style="margin-top:14px"><a href="https://doublet-jp.com/" target="_blank" rel="noopener" style="font-family:Manrope,'Zen Kaku Gothic New',sans-serif;font-size:15px;font-weight:700;letter-spacing:.04em;border-bottom:1px solid #d9cdba;padding-bottom:3px">doublet ↗</a></div>
+<div style="margin-top:20px"><a href="./project-02.html" style="font-family:Manrope,sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;border-bottom:1px solid #d9cdba;padding-bottom:3px">MORE →</a></div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px;margin-top:88px;padding-top:40px;border-top:1px solid #d9cdba">
+<div style="font-family:Manrope,sans-serif;font-weight:700;font-size:22px;letter-spacing:.04em">CLIENTS</div>
+<div>
+<p style="font-size:16px;line-height:2.05;letter-spacing:.05em;margin:0">パリ・ファッションウィークで発表するブランドをはじめ、国内外のデザイナーズブランド・コレクションブランドのものづくりを担当しています。（例：MIHARA YASUHIRO ／ doublet ほか）</p>
+</div>
+</div>
+</div>
+
+<div style="position:relative">
+<div style="height:460px"><image-slot style="width:100%;height:100%" id="2a-cta" shape="rect" placeholder="写真：手元・生地" src="./photos/p34.webp"></image-slot></div>
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+<div style="background:#ffffff;border-radius:20px;padding:56px 72px;text-align:center;max-width:560px;pointer-events:auto">
+<div style="font-family:Manrope,sans-serif;font-weight:700;font-size:22px;letter-spacing:.04em">CONTACT</div>
+<p style="font-size:15px;line-height:2;letter-spacing:.05em;margin:20px 0 0">サンプル1枚から、話せます。</p>
+<div style="display:flex;justify-content:center;gap:14px;margin-top:28px">
+<a href="./contact.html" style="font-family:Manrope,sans-serif;font-size:13px;font-weight:700;color:#fdfcfa;background:#3c3a36;border-radius:999px;padding:11px 26px;letter-spacing:.06em">CONTACT →</a>
+<a href="./english.html" style="font-family:Manrope,sans-serif;font-size:13px;font-weight:700;color:#3c3a36;border:1px solid #3c3a36;border-radius:999px;padding:10px 26px;letter-spacing:.06em">ENGLISH →</a>
+</div>
+</div>
+</div>
+</div>
+<footer style="border-top:1px solid #e6e1d6;padding:72px 48px 40px">
+<div style="display:grid;grid-template-columns:1.4fr repeat(3,minmax(0,1fr));gap:48px">
+<div><div style="font-family:Manrope,sans-serif;font-weight:700;letter-spacing:.12em;font-size:16px">MILL CREATE</div><div style="font-size:12px;color:#75705f;line-height:2;margin-top:16px">有限会社MILL CREATE<br>〒729-3101 広島県福山市新市町戸手1030-4<br>TEL 0847-51-5373 ／ FAX 0847-51-3606</div></div>
+<div><div style="font-family:Manrope,sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;color:#a39d90">SITE</div><div style="display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:18px;font-size:13px;letter-spacing:.05em"><a href="./philosophy.html">PHILOSOPHY</a><a href="./about.html">ABOUT</a><a href="./factory.html">FACTORY</a><a href="./news.html">NEWS</a></div></div>
+<div><div style="font-family:Manrope,sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;color:#a39d90">FOR YOU</div><div style="display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:18px;font-size:13px;letter-spacing:.05em"><a href="./recruit.html">RECRUIT</a><a href="./contact.html">CONTACT</a><a href="./faq.html">FAQ</a><a href="./english.html">ENGLISH</a></div></div>
+<div><div style="font-family:Manrope,sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;color:#a39d90">LINKS</div><div style="display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:18px;font-size:13px;letter-spacing:.05em"><a href="https://hito-to-ito.com/" target="_blank" rel="noopener">HITOTOITO ↗</a><a href="https://www.boleega.com/" target="_blank" rel="noopener">Project Boleega ↗</a></div></div>
+</div>
+<div style="font-family:Manrope,sans-serif;font-size:11px;letter-spacing:.1em;color:#a39d90;margin-top:64px">© MILL CREATE</div>
+</footer>
+</div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { open: false };
+  renderVals() {
+    return {
+      toggle_p: () => this.setState(s => ({ open: !s.open })),
+      open_p: this.state.open
+    };
+  }
+}
+</script>
+</body>
+</html>
